@@ -1,24 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import Clock from './components/clock';
+import DateTimeString from './components/datetimestring';
+import { Grid, GridItem } from '@chakra-ui/react'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid h="100vh" 
+          templateColumns='repeat(3, 1fr)'
+          templateRows='repeat(10, 1fr)'
+          gap={4}
+          bg='#282c34'>
+      <GridItem colSpan={1} rowSpan={6} >
+        <Clock></Clock>
+      </GridItem>
+      <GridItem colSpan={2} rowSpan={10} >
+      </GridItem>
+
+      <GridItem colSpan={1} rowSpan={4} textAlign={'center'}>
+        <DateTimeString></DateTimeString>
+     </GridItem>
+    </Grid>
+            
+
   );
 }
 
