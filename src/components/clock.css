@@ -15,8 +15,9 @@
   transform: translate(-50%, -50%);
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
   font-size: 24px;
-  color: #444;
+  color: #fff;
   text-align: center;
+  background-color: rgba(101, 207, 226, 0.1);
 }
 
 .clock::after {
@@ -46,8 +47,8 @@
 .min_hand {
   position: absolute;
   width: 4px;
-  height: 80px;
-  background: #444;
+  height: 88px;
+  background: rgb(208, 208, 208);
   top: 22.5%;
   left: 49%;
   transform-origin: bottom;

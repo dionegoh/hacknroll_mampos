@@ -50,7 +50,7 @@ function DateTimeString() {
     }
     
     return (
-        <Text fontSize='24px' font=''>
+        <Text fontSize='24px' textColor={'#fff'} >
             {day + " " + alphabetMonth + " " + year}
         </Text>
     );
