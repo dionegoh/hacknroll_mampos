@@ -37,7 +37,7 @@ function Overlay(props) {
 					setAnswer={setAnswer}
 				>
 				</Question>)}, [])}
-				{answer}
+				
 				<NumberInput
 					onChange={e => {
 						e.keyCode === 'Enter' 
