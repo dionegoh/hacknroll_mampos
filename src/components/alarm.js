@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import {
 	Box, Button, ChakraProvider, HStack, IconButton, Text, VStack,
 	AlertDialog,
@@ -16,9 +16,12 @@ import {
 } from '@chakra-ui/react';
 import Sound from '../mixkit-casino-win-alarm-and-coins-1990.mp3';
 import { DeleteIcon } from '@chakra-ui/icons';
+import AlarmContext from '../AlarmContext';
 
 function Alarm(props) {
 	const [alarmProfile, setAlarmProfile] = useState(props);
+	const { alarmList, setAlarmList } = useContext(AlarmContext);
+	const [alarmId, setAlarmId] = useState(alarmProfile.alarmId);
 	const [hour, setHour] = useState(alarmProfile.hour);
 	const [minutes, setMinutes] = useState(alarmProfile.minutes);
 	const [difficulty, setDifficulty] = useState(alarmProfile.difficulty);
@@ -49,6 +52,12 @@ function Alarm(props) {
 		return currentDateTime.getHours().toString() === alarmProfile.hour && currentDateTime.getMinutes().toString() === alarmProfile.minutes;
 	}
 
+	console.log(alarmProfile);
+	const deleteAlarm = () => {
+		const newList = alarmList.filter((item) => item.alarmId.toString() !== alarmId.toString());
+		setAlarmList(newList);
+	}
+
 	useEffect(() => {
 		setAlarmProfile(props);
 	}, [props])
@@ -74,9 +83,10 @@ function Alarm(props) {
 						w='100px'
 						colorScheme='green'
 						onClick={() => toggleOverlay()}>Edit</Button>
-					<IconButton
+					<Button
+						w='100px'
 						colorScheme='red'
-						icon={<DeleteIcon />} />
+						onClick={() => deleteAlarm()}>Delete</Button>
 				</HStack>
 			</HStack>
 			<AlertDialog
