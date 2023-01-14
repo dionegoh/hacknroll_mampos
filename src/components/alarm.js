@@ -140,7 +140,7 @@ function Alarm(props) {
 							<VStack alignItems='flex-start'>
 								<HStack>
 									<Text>Time:</Text>
-									<NumberInput w='40%' defaultValue={alarmProfile.hour} max={23} min={0} clampValueOnBlur={false} onChange={e => setHour(e)}>
+									<NumberInput w='40%' defaultValue={alarmProfile.hour} min={0} max={23} keepWithinRange={true} clampValueOnBlur={true} onChange={e => setHour(e)}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
@@ -148,7 +148,7 @@ function Alarm(props) {
 										</NumberInputStepper>
 									</NumberInput>
 									<Text>:</Text>
-									<NumberInput w='40%' defaultValue={alarmProfile.minutes} max={59} min={0} clampValueOnBlur={false} onChange={e => setMinutes(e)}>
+									<NumberInput w='40%' defaultValue={alarmProfile.minutes} min={0} max={59} keepWithinRange={true} clampValueOnBlur={true} onChange={e => setMinutes(e)}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
