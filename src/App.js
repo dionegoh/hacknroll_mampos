@@ -1,8 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import AddAlarmButton from './components/AddAlarmButton';
+import Alarm from './components/alarm';
 import Clock from './components/clock';
 import DateTimeString from './components/datetimestring';
 import { Grid, GridItem } from '@chakra-ui/react'
+
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Clock></Clock>
       </GridItem>
       <GridItem colSpan={2} rowSpan={10} >
+        <AddAlarmButton />
+        <Alarm hour='17' minutes='42' difficulty='easy'/>
       </GridItem>
 
       <GridItem colSpan={1} rowSpan={4} textAlign={'center'}>
