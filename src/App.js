@@ -20,7 +20,7 @@ function App() {
       <Modal
           isOpen={isOverlayOpen}
           toggleOverlay={toggleOverlay}
-          onClose={toggleOverlay}
+          // onClose={toggleOverlay}
         >
           <ModalOverlay>
             <Overlay

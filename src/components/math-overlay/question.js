@@ -1,3 +1,5 @@
+import { Heading } from '@chakra-ui/react';
+
 function Question(props) {
 	const difficulty = props.difficulty;
 	const setAnswer = (e) => {
@@ -43,11 +45,14 @@ function Question(props) {
 
 	}
 	return (
-		difficulty === 'easy' 
-			? larger + ' ' + arithmetic + ' ' + smaller + ' = ? '
-			: difficulty === 'medium'
-				? larger + ' ' + arithmetic + ' ' + smaller + ' ' + arithmetic + ' ' + number3 + ' = ? ' 
-				: larger + ' ' + '*' + ' ' + smaller + ' = ? '
+		<Heading size='lg' >
+			{ difficulty === 'easy' 
+				? larger + ' ' + arithmetic + ' ' + smaller + ' = ? '
+				: difficulty === 'medium'
+					? larger + ' ' + arithmetic + ' ' + smaller + ' ' + arithmetic + ' ' + number3 + ' = ? ' 
+					: larger + ' ' + '*' + ' ' + smaller + ' = ? '}
+		</Heading>
+
 	);
 }
 

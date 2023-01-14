@@ -3,11 +3,10 @@ import {
 	ModalHeader,
 	ModalFooter,
 	ModalBody,
-	ModalCloseButton,
 	Button,
 	NumberInput,
 	NumberInputField,
-	VStack,
+	Heading,
 } from '@chakra-ui/react'
 import Question from './question'
 import { useState, useMemo } from 'react';
@@ -15,6 +14,7 @@ import { useState, useMemo } from 'react';
 function Overlay(props) {
 	const [answer, setAnswer] = useState(0);
     const [userAnswer, setUserAnswer] = useState(0);
+    const [answerError, setAnswerError] = useState(false);
 
 	const onClose = () => { 
 		props.toggleOverlay();
@@ -23,40 +23,43 @@ function Overlay(props) {
 	const checkAnswer = () => {
 		console.log("Real answer: " + answer)
 		console.log("User answer: " + userAnswer)
-		if (userAnswer == answer)
-			onClose()
+		if (userAnswer == answer) {
+			onClose();
+			setAnswerError(false);
+		}
+		else
+			setAnswerError(true);
 	}
 
 	return (
 		<ModalContent>
 			<ModalHeader>Solve this to stop the alarm!</ModalHeader>
-			<ModalCloseButton/>
 			<ModalBody>
 				{useMemo(() => {
-					return(<Question
-					difficulty="hard"
-					setAnswer={setAnswer}
-				>
+					return(
+					<Question
+						difficulty="easy"
+						setAnswer={setAnswer}
+					>
 				</Question>)}, [])}
-				
 				<NumberInput
 					onChange={e => {
 						e.keyCode === 'Enter' 
 							? checkAnswer()
 							: setUserAnswer(e)
+						}
 					}
-					}
+					isInvalid={answerError}
 					>
 					<NumberInputField/>
 				</NumberInput>
+				<Heading size='sm' color='red.500'>{answerError ? "Try again!" : " " }</Heading>
 			</ModalBody>
-
+			
 			<ModalFooter>
-				<VStack>
-					<Button colorScheme='blue' mr={3} onClick={checkAnswer}>
-						Enter
-					</Button>
-				</VStack>
+				<Button colorScheme='green' mr={3} onClick={checkAnswer}>
+					Enter
+				</Button>
 			</ModalFooter>
 		</ModalContent>
 	)
