@@ -64,7 +64,7 @@ function AddAlarmButton() {
 							<VStack alignItems='flex-start'>
 								<HStack>
 									<Text>Time:</Text>
-									<NumberInput w='40%' defaultValue={hour} max={23} min={1} clampValueOnBlur={false} onChange={e => setHour(e)}>
+									<NumberInput w='40%' defaultValue={hour} max={23} min={0} clampValueOnBlur={false} onChange={e => setHour(e)}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
@@ -82,10 +82,10 @@ function AddAlarmButton() {
 								</HStack>
 								<HStack>
 									<Text>Difficulty:</Text>
-									<Select w='100%' onChange={e => setDifficulty(e)}>
-										<option value='option1'>easy</option>
-										<option value='option2'>medium</option>
-										<option value='option2'>hard</option>
+									<Select w='100%' onChange={e => setDifficulty(e.target.value)}>
+										<option value='easy'>easy</option>
+										<option value='medium'>medium</option>
+										<option value='hard'>hard</option>
 									</Select>
 								</HStack>
 							</VStack>
