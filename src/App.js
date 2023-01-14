@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import { useState } from 'react';
+import Overlay from './components/math-overlay/overlay'
+import { Button, Modal, ModalOverlay } from '@chakra-ui/react';
+
+import React from 'react';
 
 function App() {
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const toggleOverlay = () => {
+    setIsOverlayOpen(!isOverlayOpen)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ChakraProvider>
+      <Button onClick={toggleOverlay}>
+            Open Modal
+        </Button>
+      <Modal
+          isOpen={isOverlayOpen}
+          toggleOverlay={toggleOverlay}
+          onClose={toggleOverlay}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <ModalOverlay>
+            <Overlay
+              toggleOverlay={toggleOverlay}
+              >
+              </Overlay>
+          </ModalOverlay>
+        </Modal>
+    </ChakraProvider>
   );
 }
+
+
 
 export default App;
