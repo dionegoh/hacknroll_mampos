@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import {
+	Badge,
 	Box, Button, ChakraProvider, HStack, Text, VStack,
 	AlertDialog,
 	AlertDialogOverlay,
@@ -104,13 +105,13 @@ function Alarm(props) {
 					</MathOverlay>
 				</ModalOverlay>
 			</Modal>
-			<HStack w='400px'>
-				<HStack w='70%'>
+			<HStack w='80%'>
+				<HStack w='70%' spacing={8}>
 					<VStack>
-						<Text fontSize='4xl' as='b'>{time}</Text>
+						<Text color='#FFF' fontSize='4xl' as='b'>{time}</Text>
 					</VStack>
 					<Box>
-						<Text fontSize='md' as='u'>{alarmProfile.difficulty}</Text>
+						<Badge colorScheme='purple' fontSize='md'>{alarmProfile.difficulty}</Badge>
 					</Box>
 				</HStack>
 				<HStack w='30%'>
