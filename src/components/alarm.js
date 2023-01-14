@@ -49,7 +49,7 @@ function Alarm(props) {
 	}
 
 	const checkAlarm = () => {
-		return currentDateTime.getHours().toString() === alarmProfile.hour && currentDateTime.getMinutes().toString() === alarmProfile.minutes;
+		return currentDateTime.getHours().toString() === alarmProfile.hour.toString() && currentDateTime.getMinutes().toString() === alarmProfile.minutes.toString();
 	}
 
 	console.log(alarmProfile);
