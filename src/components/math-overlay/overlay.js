@@ -19,6 +19,8 @@ function Overlay(props) {
 	const onClose = () => { 
 		props.toggleOverlay();
 	}
+	
+	const difficulty = props.difficulty;
 
 	const checkAnswer = () => {
 		console.log("Real answer: " + answer)
@@ -38,7 +40,7 @@ function Overlay(props) {
 				{useMemo(() => {
 					return(
 					<Question
-						difficulty="easy"
+						difficulty={difficulty}
 						setAnswer={setAnswer}
 					>
 				</Question>)}, [])}

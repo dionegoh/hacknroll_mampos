@@ -1,25 +1,28 @@
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Button, Modal, ModalOverlay, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, Text } from '@chakra-ui/react';
 
 import AddAlarmButton from './components/AddAlarmButton';
-import Alarm from './components/Alarm';
+import Alarm from './components/alarm';
 import Clock from './components/clock';
-import Overlay from './components/math-overlay/overlay'
+// import Overlay from './components/math-overlay/overlay'
 import DateTimeString from './components/datetimestring';
 import AlarmContext from './AlarmContext';
 
 import React from 'react';
 
 function App() {
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const toggleOverlay = () => {
-    setIsOverlayOpen(!isOverlayOpen)
-  }
-
-  return (
-    <ChakraProvider>
+	const [alarmList, setAlarmList] = useState([]);
+	const [alarmId, setAlarmId] = useState(1);
+	
+	// const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+	// const toggleOverlay = () => {
+	// 	setIsOverlayOpen(!isOverlayOpen)
+	// }
+	
+	return (
+	<ChakraProvider>
 		<AlarmContext.Provider
 			value={{
 				alarmId: alarmId,
@@ -66,7 +69,7 @@ function App() {
 			</ModalOverlay>
 			</Modal> */}
 		</ChakraProvider>
-  );
+  	);
 }
 
 export default App;
