@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import {
 	Box, Button, ChakraProvider, HStack, Text, VStack,
 	AlertDialog,
@@ -31,8 +31,7 @@ function Alarm(props) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 	const [isMathOverlayOpen, setIsMathOverlayOpen] = useState(false);
 	const cancelRef = useRef();
-	const currentDateTime = new Date();
-	const alarmSound = new Audio(Sound); // insert audio file
+	const alarmSound = useMemo(() => new Audio(Sound), [Sound]); // insert audio file
 	const time = `${alarmProfile.hour} : ${alarmProfile.minutes}`;
 	
 	const toggleMathOverlay = () => {
@@ -51,8 +50,6 @@ function Alarm(props) {
 		toggleOverlay();
 	}
 
-	const [alarmStatus, setAlarmStatus] = useState(false);
-
 	const cancelAlarm = () => {
 		setHour(alarmProfile.hour);
 		setMinutes(alarmProfile.minutes);
@@ -68,7 +65,6 @@ function Alarm(props) {
 			alarmSound.loop = true;
 			setIsMathOverlayOpen(true);
 		}
-
 	}
 
 	console.log(alarmProfile);
@@ -78,6 +74,7 @@ function Alarm(props) {
 	}
 
 	const pauseAlarm = () => {
+		alarmSound.loop = false;
 		alarmSound.pause();
 	  };
 
