@@ -158,7 +158,7 @@ function Alarm(props) {
 								</HStack>
 								<HStack>
 									<Text>Difficulty:</Text>
-									<Select w='100%' onChange={e => setDifficulty(e.target.value)}>
+									<Select w='100%' defaultValue={alarmProfile.difficulty} onChange={e => setDifficulty(e.target.value)}>
 										<option value='easy'>easy</option>
 										<option value='medium'>medium</option>
 										<option value='hard'>hard</option>
