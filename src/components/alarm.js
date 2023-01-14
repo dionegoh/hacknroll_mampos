@@ -72,10 +72,10 @@ function Alarm(props) {
 			<HStack w='400px'>
 				<HStack w='70%'>
 					<VStack>
-						<Text fontSize='4xl' as='b'>{time}</Text>
+						<Text color='#FFF' fontSize='4xl' as='b'>{time}</Text>
 					</VStack>
 					<Box>
-						<Text fontSize='md' as='u'>{alarmProfile.difficulty}</Text>
+						<Text color='#FFF' fontSize='md' as='u'>{alarmProfile.difficulty}</Text>
 					</Box>
 				</HStack>
 				<HStack w='30%'>
