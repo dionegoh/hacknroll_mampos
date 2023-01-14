@@ -21,10 +21,11 @@ function Overlay(props) {
 	}
 
 	const checkAnswer = () => {
-		if (userAnswer === answer)
+		console.log("Real answer: " + answer)
+		console.log("User answer: " + userAnswer)
+		if (userAnswer == answer)
 			onClose()
 	}
-
 
 	return (
 		<ModalContent>
