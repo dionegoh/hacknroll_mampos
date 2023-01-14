@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import {
+	Badge,
 	Box, Button, ChakraProvider, HStack, IconButton, Text, VStack,
 	AlertDialog,
 	AlertDialogOverlay,
@@ -69,13 +70,13 @@ function Alarm(props) {
 
 	return (
 		<ChakraProvider>
-			<HStack w='400px'>
-				<HStack w='70%'>
+			<HStack w='80%'>
+				<HStack w='70%' spacing={8}>
 					<VStack>
 						<Text color='#FFF' fontSize='4xl' as='b'>{time}</Text>
 					</VStack>
 					<Box>
-						<Text color='#FFF' fontSize='md' as='u'>{alarmProfile.difficulty}</Text>
+						<Badge colorScheme='purple' fontSize='md'>{alarmProfile.difficulty}</Badge>
 					</Box>
 				</HStack>
 				<HStack w='30%'>
@@ -122,10 +123,10 @@ function Alarm(props) {
 								</HStack>
 								<HStack>
 									<Text>Difficulty:</Text>
-									<Select w='100%' onChange={e => setDifficulty(e)}>
-										<option value='option1'>easy</option>
-										<option value='option2'>medium</option>
-										<option value='option2'>hard</option>
+									<Select w='100%' onChange={e => {setDifficulty(e)}}>
+										<option value='easy'>easy</option>
+										<option value='medium'>medium</option>
+										<option value='hard'>hard</option>
 									</Select>
 								</HStack>
 							</VStack>

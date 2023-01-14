@@ -36,11 +36,10 @@ function App() {
               <Box w='10%'></Box>
               <AddAlarmButton />
             </Flex>
-            <Flex w='100%' justifyContent='flex-start'>
-              <Box w='10%'></Box>
-              <Text color='#fff' paddingTop='16px'>Alarm List:</Text>
-            </Flex>
-              {alarmList.map((item) => (
+  
+              {(alarmList.length == 0) && <Text color='#fff' paddingTop='16px'>No alarms added yet!</Text>
+  }
+              {(alarmList.length > 0) && alarmList.map((item) => (
                 <Alarm hour={item.hour} minutes={item.minutes} difficulty={item.difficulty} alarmId={item.alarmId} />
               ))}
 						
