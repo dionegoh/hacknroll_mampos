@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import {
 	Button, ChakraProvider, HStack, Text, VStack,
 	AlertDialog,
@@ -14,16 +14,36 @@ import {
 	NumberDecrementStepper,
 	Select
 } from '@chakra-ui/react';
+import AlarmContext from '../AlarmContext';
 
 function AddAlarmButton() {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+	const { alarmList, setAlarmList, alarmId, setAlarmId } = useContext(AlarmContext);
 	const currentDate = new Date();
 	const [hour, setHour] = useState(currentDate.getHours());
 	const [minutes, setMinutes] = useState(currentDate.getMinutes());
-	const [difficulty, setDifficulty] = useState("Easy");
+	const [difficulty, setDifficulty] = useState("easy");
 	const cancelRef = useRef();
 	const toggleOverlay = () => {
 		setIsOverlayVisible(!isOverlayVisible);
+	}
+	const addAlarm = () => {
+		const newList = alarmList.concat({
+			alarmId: alarmId,
+			hour: hour,
+			minutes: minutes,
+			difficulty: difficulty
+		});
+		setAlarmList(newList);
+		setAlarmId(alarmId + 1);
+		toggleOverlay();
+	}
+
+	const cancelAlarm = () => {
+		setHour(currentDate.getHours());
+		setMinutes(currentDate.getMinutes());
+		setDifficulty("easy");
+		toggleOverlay();
 	}
 
 	return (
@@ -32,7 +52,7 @@ function AddAlarmButton() {
 			<AlertDialog
 				isOpen={isOverlayVisible}
 				leastDestructiveRef={cancelRef}
-				onClose={() => toggleOverlay()}
+				onClose={() => cancelAlarm()}
 			>
 				<AlertDialogOverlay>
 					<AlertDialogContent>
@@ -44,7 +64,7 @@ function AddAlarmButton() {
 							<VStack alignItems='flex-start'>
 								<HStack>
 									<Text>Time:</Text>
-									<NumberInput w='40%' defaultValue='1' max={12} min={1} clampValueOnBlur={false} onChange={e => setHour(e)}>
+									<NumberInput w='40%' defaultValue={hour} max={23} min={1} clampValueOnBlur={false} onChange={e => setHour(e)}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
@@ -52,7 +72,7 @@ function AddAlarmButton() {
 										</NumberInputStepper>
 									</NumberInput>
 									<Text>:</Text>
-									<NumberInput w='40%' defaultValue='0' max={59} min={0} clampValueOnBlur={false} onChange={e => setMinutes(e)}>
+									<NumberInput w='40%' defaultValue={minutes} max={59} min={0} clampValueOnBlur={false} onChange={e => setMinutes(e)}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
@@ -72,11 +92,11 @@ function AddAlarmButton() {
 						</AlertDialogBody>
 
 						<AlertDialogFooter>
-							<Button ref={cancelRef} onClick={() => toggleOverlay()}>
+							<Button ref={cancelRef} onClick={() => cancelAlarm()}>
 								Cancel
 							</Button>
-							<Button colorScheme='green' onClick={() => toggleOverlay()} ml={3}>
-								Confirm
+							<Button colorScheme='green' onClick={() => addAlarm()} ml={3}>
+								Add alarm
 							</Button>
 						</AlertDialogFooter>
 					</AlertDialogContent>
