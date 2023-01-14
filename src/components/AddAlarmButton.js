@@ -82,10 +82,10 @@ function AddAlarmButton() {
 								</HStack>
 								<HStack>
 									<Text>Difficulty:</Text>
-									<Select w='100%' onChange={e => setDifficulty(e)}>
-										<option value='option1'>easy</option>
-										<option value='option2'>medium</option>
-										<option value='option2'>hard</option>
+									<Select w='100%' onChange={e => setDifficulty(e.target.value)}>
+										<option value='easy'>easy</option>
+										<option value='medium'>medium</option>
+										<option value='hard'>hard</option>
 									</Select>
 								</HStack>
 							</VStack>

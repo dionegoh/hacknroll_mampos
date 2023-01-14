@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import {
 	Badge,
-	Box, Button, ChakraProvider, HStack, IconButton, Text, VStack,
+	Box, Button, ChakraProvider, HStack, Text, VStack,
 	AlertDialog,
 	AlertDialogOverlay,
 	AlertDialogContent,
@@ -13,11 +13,14 @@ import {
 	NumberInputStepper,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
-	Select
+	Select,
+	Modal, 
+	ModalOverlay
 } from '@chakra-ui/react';
 import Sound from '../mixkit-casino-win-alarm-and-coins-1990.mp3';
 import { DeleteIcon } from '@chakra-ui/icons';
 import AlarmContext from '../AlarmContext';
+import MathOverlay from '../components/math-overlay/overlay';
 
 function Alarm(props) {
 	const [alarmProfile, setAlarmProfile] = useState(props);
@@ -27,10 +30,15 @@ function Alarm(props) {
 	const [minutes, setMinutes] = useState(alarmProfile.minutes);
 	const [difficulty, setDifficulty] = useState(alarmProfile.difficulty);
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+	const [isMathOverlayOpen, setIsMathOverlayOpen] = useState(false);
 	const cancelRef = useRef();
-	const currentDateTime = new Date();
-	const alarmSound = new Audio(Sound); // insert audio file
+	const alarmSound = useMemo(() => new Audio(Sound), [Sound]); // insert audio file
 	const time = `${alarmProfile.hour} : ${alarmProfile.minutes}`;
+	
+	const toggleMathOverlay = () => {
+		setIsMathOverlayOpen(!isMathOverlayOpen)
+	}
+
 	const toggleOverlay = () => {
 		setIsOverlayVisible(!isOverlayVisible);
 	}
@@ -42,6 +50,7 @@ function Alarm(props) {
 		});
 		toggleOverlay();
 	}
+
 	const cancelAlarm = () => {
 		setHour(alarmProfile.hour);
 		setMinutes(alarmProfile.minutes);
@@ -49,8 +58,14 @@ function Alarm(props) {
 		toggleOverlay();
 	}
 
-	const checkAlarm = () => {
-		return currentDateTime.getHours().toString() === alarmProfile.hour.toString() && currentDateTime.getMinutes().toString() === alarmProfile.minutes.toString();
+	const checkAlarm = (currDate) => {
+		console.log("Checking alarm");
+		if (currDate.getHours().toString() === alarmProfile.hour.toString() && currDate.getMinutes().toString() === alarmProfile.minutes.toString()) {
+			console.log("Alarm!!!!");
+			alarmSound.play();
+			alarmSound.loop = true;
+			setIsMathOverlayOpen(true);
+		}
 	}
 
 	console.log(alarmProfile);
@@ -59,17 +74,37 @@ function Alarm(props) {
 		setAlarmList(newList);
 	}
 
+	const pauseAlarm = () => {
+		alarmSound.loop = false;
+		alarmSound.pause();
+	  };
+
 	useEffect(() => {
 		setAlarmProfile(props);
+		const interval = setInterval(() => {
+			checkAlarm(new Date());
+		  }, 1000);
+		return () => clearInterval(interval); 
 	}, [props])
-
-	if (checkAlarm()) {
-		alarmSound.play();
-		alarmSound.loop = true;
-	}
 
 	return (
 		<ChakraProvider>
+			<Modal
+				isOpen={isMathOverlayOpen}
+				onCloseComplete={() => {
+					pauseAlarm();
+					deleteAlarm();
+					}
+				}
+				>
+				<ModalOverlay>
+					<MathOverlay
+						toggleOverlay={toggleMathOverlay}
+						difficulty={alarmProfile.difficulty}
+						>
+					</MathOverlay>
+				</ModalOverlay>
+			</Modal>
 			<HStack w='80%'>
 				<HStack w='70%' spacing={8}>
 					<VStack>
@@ -123,7 +158,7 @@ function Alarm(props) {
 								</HStack>
 								<HStack>
 									<Text>Difficulty:</Text>
-									<Select w='100%' onChange={e => {setDifficulty(e)}}>
+									<Select w='100%' onChange={e => setDifficulty(e.target.value)}>
 										<option value='easy'>easy</option>
 										<option value='medium'>medium</option>
 										<option value='hard'>hard</option>
