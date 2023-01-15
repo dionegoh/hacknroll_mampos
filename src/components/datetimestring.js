@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 
 
 function DateTimeString() {
@@ -50,9 +50,14 @@ function DateTimeString() {
     }
     
     return (
-        <Text fontSize='24px' textColor={'#fff'} >
-            {day + " " + alphabetMonth + " " + year}
-        </Text>
+        <VStack>
+            <Text fontSize='24px' textColor={'#fff'} >
+                {day + " " + alphabetMonth + " " + year}
+            </Text>
+            <Text fontSize='24px' textColor={'#fff'}>
+                {date.toLocaleTimeString()}
+            </Text>
+        </VStack>
     );
 }
 
