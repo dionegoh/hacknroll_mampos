@@ -33,7 +33,7 @@ function Alarm(props) {
 	const [isMathOverlayOpen, setIsMathOverlayOpen] = useState(false);
 	const cancelRef = useRef();
 	const alarmSound = useMemo(() => new Audio(Sound), [Sound]); // insert audio file
-	const time = `${alarmProfile.hour} : ${alarmProfile.minutes}`;
+	const time = `${alarmProfile.hour} : ${alarmProfile.minutes < 10 ? '0' + alarmProfile.minutes : alarmProfile.minutes}`;
 	
 	const toggleMathOverlay = () => {
 		setIsMathOverlayOpen(!isMathOverlayOpen)
